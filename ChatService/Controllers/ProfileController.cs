@@ -1,8 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using ChatService.DataContracts;
 using ChatService.Logging;
 using ChatService.Storage;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -42,12 +44,16 @@ namespace ChatService.Controllers
                     request.Username);
                 return StatusCode(409, "Profile already exists");
             }
+            catch (ArgumentException)
+            {
+                return StatusCode(400, "Invalid or incomplete Request Body");
+            }
             catch (Exception e)
             {
                 logger.LogError(Events.InternalError, e, "Failed to create a profile for user {username}", request.Username);
                 return StatusCode(500, "Failed to create profile");
             }
-            return Created("username", profile);
+            return Created(request.Username, profile);
         }
 
         [HttpGet("{username}")]

@@ -88,5 +88,32 @@ namespace ChatServiceTests
                 Assert.AreEqual(HttpStatusCode.Conflict, e.StatusCode);
             }
         }
+
+        [TestMethod]
+        [DataRow("", "Nehme", "Bilal")]
+        [DataRow(null, "Nehme", "Bilal")]
+        [DataRow("nbilal", "", "Bilal")]
+        [DataRow("nbilal", null, "Bilal")]
+        [DataRow("nbilal", "Nehme", "")]
+        [DataRow("nbilal", "Nehme", null)]
+        public async Task CreateProfile_InvalidDto(string username, string firstName, string lastName)
+        {
+            var createProfileDto = new CreateProfileDto
+            {
+                Username = username,
+                FirstName = firstName,
+                LastName = lastName
+            };
+
+            try
+            {
+                await chatServiceClient.CreateProfile(createProfileDto);
+                Assert.Fail("A ChatServiceException was expected but was not thrown");
+            }
+            catch (ChatServiceException e)
+            {
+                Assert.AreEqual(HttpStatusCode.BadRequest, e.StatusCode);
+            }
+        }
     }
 }
