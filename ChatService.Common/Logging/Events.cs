@@ -9,6 +9,8 @@ namespace ChatService.Logging
         public static readonly EventId ProfileNotFound = CreateEvent(nameof(ProfileNotFound));
         public static readonly EventId ProfileAlreadyExists = CreateEvent(nameof(ProfileAlreadyExists));
         public static readonly EventId StorageError = CreateEvent(nameof(StorageError));
+        public static readonly EventId ConversationMessageAdded = CreateEvent(nameof(ConversationMessageAdded));
+        public static readonly EventId ConversationCreated = CreateEvent(nameof(ConversationCreated));
 
         private static EventId CreateEvent(string eventName)
         {

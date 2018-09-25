@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatService.Client", "ChatS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatServiceTests", "ChatServiceTests\ChatServiceTests.csproj", "{34C8E40E-A6E3-4E78-9872-8004241219C3}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ChatService.Configuration", "ChatService.Configuration\ChatService.Configuration.shproj", "{C4F5C868-AFF5-4DC0-AABD-EF391F3C2956}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		ChatService.Configuration\ChatService.Configuration.projitems*{c4f5c868-aff5-4dc0-aabd-ef391f3c2956}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

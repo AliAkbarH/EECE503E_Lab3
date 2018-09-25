@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ChatService.DataContracts
+namespace ChatService.Storage
 {
     public class UserProfile
     {

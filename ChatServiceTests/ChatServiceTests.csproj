@@ -20,4 +20,6 @@
     <ProjectReference Include="..\ChatService\ChatService.csproj" />
   </ItemGroup>
 
+  <Import Project="..\ChatService.Configuration\ChatService.Configuration.projitems" Label="Shared" />
+
 </Project>

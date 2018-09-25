@@ -1,4 +1,6 @@
 ﻿using ChatService.Storage;
+using ChatService.Storage.Azure;
+using ChatService.Storage.Memory;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,10 +23,24 @@ namespace ChatService
         {
             services.AddOptions();
 
-            services.AddSingleton<IProfileStore, InMemoryProfileStore>();
+            AzureStorageSettings azureStorageSettings = GetStorageSettings();
+
+            AzureCloudTable profileCloudTable = new AzureCloudTable(azureStorageSettings.ConnectionString, azureStorageSettings.ProfilesTableName);
+            AzureTableProfileStore profileStore = new AzureTableProfileStore(profileCloudTable);
+            services.AddSingleton<IProfileStore>(profileStore);
+
+            services.AddSingleton<IConversationsStore, InMemoryConversationStore>();
 
             services.AddLogging();
             services.AddMvc();
+        }
+
+        private AzureStorageSettings GetStorageSettings()
+        {
+            IConfiguration storageConfiguration = Configuration.GetSection(nameof(AzureStorageSettings));
+            AzureStorageSettings storageSettings = new AzureStorageSettings();
+            storageConfiguration.Bind(storageSettings);
+            return storageSettings;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

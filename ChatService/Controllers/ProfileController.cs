@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 using ChatService.DataContracts;
 using ChatService.Logging;
 using ChatService.Storage;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

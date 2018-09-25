@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using ChatService;
 using ChatService.Client;
 using ChatService.DataContracts;
+using ChatService.Storage;
+using ChatServiceTests.Utils;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,7 +20,7 @@ namespace ChatServiceTests
     /// </summary>
     [TestClass]
     [TestCategory("Integration")]
-    public class ProfileControllerIntegTests
+    public class ProfileControllerIntegrationTests
     {
         private HttpClient httpClient;
         private TestServer server;
@@ -39,13 +39,13 @@ namespace ChatServiceTests
         {
             var createProfileDto = new CreateProfileDto
             {
-                Username = "nbilal",
+                Username = Guid.NewGuid().ToString(),
                 FirstName = "Nehme",
                 LastName = "Bilal"
             };
 
             await chatServiceClient.CreateProfile(createProfileDto);
-            UserProfile userProfile = await chatServiceClient.GetProfile("nbilal");
+            UserProfile userProfile = await chatServiceClient.GetProfile(createProfileDto.Username);
 
             Assert.AreEqual(createProfileDto.Username, userProfile.Username);
             Assert.AreEqual(createProfileDto.FirstName, userProfile.FirstName);
@@ -57,7 +57,7 @@ namespace ChatServiceTests
         {
             try
             {
-                await chatServiceClient.GetProfile("nbilal");
+                await chatServiceClient.GetProfile(Guid.NewGuid().ToString());
                 Assert.Fail("A ChatServiceException was expected but was not thrown");
             }
             catch (ChatServiceException e)
@@ -71,7 +71,7 @@ namespace ChatServiceTests
         {
             var createProfileDto = new CreateProfileDto
             {
-                Username = "nbilal",
+                Username = Guid.NewGuid().ToString(),
                 FirstName = "Nehme",
                 LastName = "Bilal"
             };
@@ -101,7 +101,7 @@ namespace ChatServiceTests
             var createProfileDto = new CreateProfileDto
             {
                 Username = username,
-                FirstName = firstName,
+                FirstName = firstName, 
                 LastName = lastName
             };
 
