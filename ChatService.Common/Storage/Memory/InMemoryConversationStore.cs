@@ -9,7 +9,7 @@ namespace ChatService.Storage.Memory
         private readonly Dictionary<string, SortedUserConversationList> userConversations = new Dictionary<string, SortedUserConversationList>();
         private readonly Dictionary<string, List<Message>> conversationsMessages = new Dictionary<string, List<Message>>();
 
-        public Task AddConversation(Conversation conversation)
+        public Task AddConversationAsync(Conversation conversation)
         {
             if (conversationsMessages.ContainsKey(conversation.Id))
             {

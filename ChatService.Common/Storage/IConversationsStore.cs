@@ -9,7 +9,7 @@ namespace ChatService.Storage
         /// <returns>The list of all conversations of a given user sorted by the last time the conversation was modified (recent conversations first)</returns>
         Task<IEnumerable<Conversation>> ListConversations(string username);
 
-        Task AddConversation(Conversation conversation);
+        Task AddConversationAsync(Conversation conversation);
 
         Task<IEnumerable<Message>> ListMessages(string conversationId);
 

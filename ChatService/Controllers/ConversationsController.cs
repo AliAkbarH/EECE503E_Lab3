@@ -61,7 +61,7 @@ namespace ChatService.Controllers
             {
                 string id = GenerateConversationId(conversationDto);
                 Conversation conversation = new Conversation(id, conversationDto.Participants, DateTime.UtcNow);
-                await conversationsStore.AddConversation(conversation);
+                await conversationsStore.AddConversationAsync(conversation);
 
                 logger.LogInformation(Events.ConversationCreated, "Conversation with id {conversationId} was created");
                 return Ok(conversation);
